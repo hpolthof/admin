@@ -12,7 +12,7 @@ abstract class AdminController extends BaseController
     use DispatchesCommands, ValidatesRequests;
 
     protected $title = 'Set $title';
-    protected $subtitle = 'Set $subtitle';
+    protected $subtitle = null;
 
     protected function view($view = null, $data = array(), $mergeData = array())
     {
@@ -31,6 +31,8 @@ abstract class AdminController extends BaseController
 
     protected function loadBaseComposer()
     {
+        $this->loadCrudSubtitle();
+
         $that = $this;
         \View::composer('admin::layout.base', function(View $view) use ($that) {
             $view->with('title', $that->title);
@@ -39,6 +41,16 @@ abstract class AdminController extends BaseController
         view()->composer(
             'admin::layout.base', 'Hpolthof\Admin\MenuComposer'
         );
+    }
+
+    protected function loadCrudSubtitle()
+    {
+        list($controller, $action) = explode('@', \Request::route()->getAction()['uses']);
+        if($this->subtitle === null) {
+            if(array_search($action, ['create', 'edit', 'index']) !== FALSE) {
+                $this->subtitle = trans('crud.'.$action);
+            }
+        }
     }
 
     public static function menuCrud($title, $icon = '', $extra_items = [])
