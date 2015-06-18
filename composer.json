@@ -1,6 +1,8 @@
 {
     "name": "hpolthof/admin",
     "description": "",
+    "license": "MIT",
+    "keywords": ["laravel", "admin"],
     "authors": [
         {
             "name": "Paul Olthof",
@@ -12,9 +14,14 @@
         "almasaeed2010/adminlte": "*"
     },
     "autoload": {
-        "psr-0": {
-            "Hpolthof\\Admin": "src/"
+        "psr-4": {
+            "Hpolthof\\Admin": "src"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
 }
