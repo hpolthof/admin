@@ -9,7 +9,7 @@ class AdminServiceProvider extends ServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = true;
+	protected $defer = false;
 
 	/**
 	 * Register the service provider.
@@ -18,7 +18,7 @@ class AdminServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->mergeConfigFrom(__DIR__.'/../../../config/admin.php', 'admin');
+		$this->mergeConfigFrom(__DIR__.'/../config/admin.php', 'admin');
 	}
 
 	public function boot()
@@ -28,11 +28,17 @@ class AdminServiceProvider extends ServiceProvider {
 		});
 
 		$this->publishes([
-			__DIR__.'/../../../../../almasaeed2010/adminlte/dist' => public_path('hpolthof/admin'),
-			__DIR__.'/../../../../../almasaeed2010/adminlte/plugins' => public_path('hpolthof/admin/plugins'),
+			__DIR__.'/../../../almasaeed2010/adminlte/dist' => public_path('hpolthof/admin'),
+			__DIR__.'/../../../almasaeed2010/adminlte/plugins' => public_path('hpolthof/admin/plugins'),
 		], 'public');
 
-		$this->loadViewsFrom(__DIR__.'/../../../resources/views', 'admin');
+		$this->publishes([
+			__DIR__.'/../resources/loaders' => app_path('Admin'),
+		], 'loaders');
+
+
+		$this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+
 
 	}
 
