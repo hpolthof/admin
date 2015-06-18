@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hpolthof\\Admin": "src"
+            "Hpolthof\\Admin\\": "src"
         }
     },
     "minimum-stability": "stable",
