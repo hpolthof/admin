@@ -56,8 +56,8 @@ abstract class AdminController extends BaseController
     public static function menuCrud($title, $icon = '', $extra_items = [])
     {
         $menu = new Menu($title, $icon);
-        $menu->addItem(new Item(trans('crud.index'), \URL::action('\\'.get_called_class().'@index'), 'fa-circle-o'));
-        $menu->addItem(new Item(trans('crud.create'), \URL::action('\\'.get_called_class().'@create'), 'fa-circle-o'));
+        $menu->addItem(new Item(trans('crud.index'), \URL::action('\\'.get_called_class().'@index'), 'fa-list-alt'));
+        $menu->addItem(new Item(trans('crud.create'), \URL::action('\\'.get_called_class().'@create'), 'fa-pencil'));
         foreach($extra_items as $i) {
             $menu->addUnsafe($i);
         }
