@@ -3,6 +3,7 @@
 
 use Hpolthof\Admin\Widget\Box;
 use Hpolthof\Admin\Widget\Widget;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
 class Table extends Widget
@@ -11,6 +12,7 @@ class Table extends Widget
     public $items;
     public $title;
     public $header;
+    public $tools;
 
     public function __construct()
     {
@@ -20,13 +22,13 @@ class Table extends Widget
     public function render()
     {
         $table = view('admin::widget.table.table', ['table' => $this]);
-        $table = $table->render();
 
         if(isset($this->title)) {
             $box = Box::create()
-                ->setTitle($this->title)
-                ->setBody($table)
-                ->setHeader(self::stringOrRender($this->header));
+                ->setTitle(self::stringOrRender($this->title))
+                ->setBody(self::stringOrRender($table))
+                ->setHeader(self::stringOrRender($this->header))
+                ->setTools(self::stringOrRender($this->tools));
             $table = $box->render();
         }
         return $table;
@@ -55,5 +57,18 @@ class Table extends Widget
         $this->header = $header;
         return $this;
     }
+
+    public function setPullHeaderRight($pullHeaderRight = true)
+    {
+        $this->pullHeaderRight = $pullHeaderRight;
+        return $this;
+    }
+
+    public function setTools($tools)
+    {
+        $this->tools = $tools;
+        return $this;
+    }
+
 
 }

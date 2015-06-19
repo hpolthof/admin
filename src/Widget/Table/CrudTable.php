@@ -1,6 +1,7 @@
 <?php namespace Hpolthof\Admin\Widget\Table;
 
 use Hpolthof\Admin\AdminException;
+use Hpolthof\Admin\AdminPaginatorPresenter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -35,7 +36,7 @@ class CrudTable extends Table
         $this->executeQuery();
 
         if($this->paginate > 0) {
-            $this->setHeader($this->items);
+            $this->setTools(new AdminPaginatorPresenter($this->items));
         }
 
         $column = new Column();

@@ -7,6 +7,17 @@ class Box extends Widget
     public $header;
     public $footer;
     public $body;
+    public $tools;
+
+    /**
+     * @param mixed $tools
+     * @return Box
+     */
+    public function setTools($tools)
+    {
+        $this->tools = $tools;
+        return $this;
+    }
 
     /**
      * @param mixed $title
