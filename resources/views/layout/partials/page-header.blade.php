@@ -1,8 +1,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {{ $title or 'Title' }}
-        <small>{{ $subtitle or 'Subtitle' }}</small>
+        {{ $title or '' }}
+        <small>{{ $subtitle or '' }}</small>
     </h1>
-    @include('admin::layout.partials.breadcrumbs')
+    @if($controller->hasBreadcrumbs())
+        @include('admin::layout.partials.breadcrumbs')
+    @endif
 </section>

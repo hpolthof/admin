@@ -29,4 +29,11 @@ return [
         'js' => [],
     ],
 
+    'search' => [
+        'url' => '',
+        'method' => 'POST',
+        'parameter' => 'query',
+        'placeholder' => 'Search...',
+    ]
+
 ];

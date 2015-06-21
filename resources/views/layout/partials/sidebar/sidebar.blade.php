@@ -16,16 +16,19 @@
             </div>
         </div>
 
+        @if(\Config::get('admin.search.url') != '')
         <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="{{ \Config::get('admin.search.url') }}" method="{{ \Config::get('admin.search.method') }}" class="sidebar-form">
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
+                <input type="text" name="{{ \Config::get('admin.search.parameter') }}" class="form-control" placeholder="{{ \Config::get('admin.search.placeholder') }}"/>
+                <span class="input-group-btn">
+                    <button type='submit' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                </span>
             </div>
         </form>
         <!-- /.search form -->
+        @endif
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">

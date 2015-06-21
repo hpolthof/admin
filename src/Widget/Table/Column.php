@@ -14,19 +14,29 @@ class Column extends Widget
 
     public function render()
     {
-        return view('admin::widget.table.column_header', [
-            'title' => $this->title,
-        ]);
+        // Use direct rendering from string instead of a view.
+        // This saves on performance when using large tables.
+        return "<th>".e($this->title)."</th>";
+//        return view('admin::widget.table.column_header', [
+//            'title' => $this->title,
+//        ]);
     }
 
     public function renderColumn($item, array $data = [])
     {
-        $column = view('admin::widget.table.column', [
-            'column' => $this,
-            'item' => $item,
-            'data' => $data,
-        ]);
-        return $column->render();
+        // Use direct rendering from string instead of a view.
+        // This saves on performance when using large tables.
+        $content = $this->getColumnContent($item);
+        if(!$this->isRaw()) {
+            $content = e($content);
+        }
+        return "<td>{$content}</td>";
+//        $column = view('admin::widget.table.column', [
+//            'column' => $this,
+//            'item' => $item,
+//            'data' => $data,
+//        ]);
+//        return $column->render();
     }
 
     /**

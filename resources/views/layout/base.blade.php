@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ \Config::get('title') }}</title>
+    <title>{{ \Config::get('admin.title') }}</title>
     @include('admin::layout._meta')
     @include('admin::layout._style')
     @include('admin::layout._scriptsTop')

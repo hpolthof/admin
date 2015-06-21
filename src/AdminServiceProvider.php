@@ -36,6 +36,10 @@ class AdminServiceProvider extends ServiceProvider {
 			__DIR__.'/../resources/loaders' => app_path('Admin'),
 		], 'loaders');
 
+		$this->publishes([
+			__DIR__.'/../config/admin.php' => config_path('admin.php'),
+		], 'config');
+
 
 		$this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
 
