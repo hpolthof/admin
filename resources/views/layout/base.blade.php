@@ -34,6 +34,6 @@
     @include('admin::layout.partials.rightbar.rightbar')
 </div><!-- ./wrapper -->
 
-    @include('admin::layout._scripts');
+    @include('admin::layout._scripts')
 </body>
 </html>

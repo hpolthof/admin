@@ -2,6 +2,7 @@
 
 return [
     'title' => 'AdminTemplate',
+    'header' => 'Menu',
 
     'footer' => [
         'left' => '<strong>Copyright &copy; '.date('Y').' <a href="#">AdminServiceProvider</a>.</strong> All rights reserved.',

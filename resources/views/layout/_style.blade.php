@@ -6,3 +6,6 @@
 @foreach(\Config::get('admin.includes.css') as $script)
       <link href="{{ $script }}" rel="stylesheet" type="text/css" />
 @endforeach
+@foreach($_ctrl->getCss()->unique() as $script)
+      <link href="{{ $script }}" rel="stylesheet" type="text/css" />
+@endforeach

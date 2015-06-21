@@ -19,11 +19,25 @@ class MenuComposer
 
         if(is_array($menu)) {
             foreach($menu as $i) {
-                $rendered .= $i->render();
+                $this->getRenderedResult($i, $rendered);
             }
         } else {
-            $rendered = $menu->render();
+            $this->getRenderedResult($menu, $rendered);
         }
         return $rendered;
+    }
+
+    /**
+     * @param $i
+     * @param $rendered
+     * @return string
+     */
+    protected function getRenderedResult($i, &$rendered)
+    {
+        if (method_exists($i, 'render')) {
+            $rendered .= $i->render();
+        } else {
+            $rendered .= $i;
+        }
     }
 }

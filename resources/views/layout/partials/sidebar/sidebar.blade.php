@@ -32,7 +32,7 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">HEADER</li>
+            <li class="header">{{ \Config::get('admin.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
             {!! $menu or 'no menu found' !!}
         </ul><!-- /.sidebar-menu -->

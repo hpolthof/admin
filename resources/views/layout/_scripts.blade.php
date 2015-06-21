@@ -6,3 +6,6 @@
 @foreach(\Config::get('admin.includes.js') as $script)
     <script src="{{ $script }}" type="text/javascript"></script>
 @endforeach
+@foreach($_ctrl->getJs()->unique() as $script)
+    <script src="{{ $script }}" type="text/javascript"></script>
+@endforeach

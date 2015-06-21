@@ -7,6 +7,7 @@ use Hpolthof\Admin\Widget\Menu\Menu;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 abstract class AdminController extends BaseController
@@ -16,6 +17,8 @@ abstract class AdminController extends BaseController
     protected $title = 'Set $title';
     protected $subtitle;
     protected $breadcrumbs;
+    protected $css;
+    protected $js;
 
     protected function view($view = null, $data = array(), $mergeData = array())
     {
@@ -23,8 +26,8 @@ abstract class AdminController extends BaseController
             \Debugbar::startMeasure('admin_view', 'Admin view generation');
         }
         $this->loadBaseComposer();
-        $content = view($view, $data, $mergeData)->render();
-        $content = view('admin::layout.base', compact('content'));
+        $content = view($view, array_merge($data, ['_ctrl' => $this]), $mergeData)->render();
+        $content = view('admin::layout.base', ['content' => $content, '_ctrl' => $this]);
         if(array_search('Barryvdh\Debugbar\LaravelDebugbar', get_declared_classes()) !== FALSE) {
             \Debugbar::stopMeasure('admin_view');
         }
@@ -89,9 +92,9 @@ abstract class AdminController extends BaseController
         return $this;
     }
 
-    public function addActionCrumb($action, $label, $icon = null)
+    public function addActionCrumb($action, $label, $icon = null, array $parameters = [])
     {
-        $this->addBreadcrumb(self::actionLink($action, $label, $icon));
+        $this->addBreadcrumb(self::actionLink($action, $label, $icon, $parameters));
     }
 
     public function hasBreadcrumbs()
@@ -99,9 +102,37 @@ abstract class AdminController extends BaseController
         return $this->getBreadcrumbs()->count() > 0;
     }
 
-    public static function actionLink($action, $label, $icon = null)
+    public static function actionLink($action, $label, $icon = null, array $parameters = [])
     {
         $class = get_called_class();
-        return new Link(\URL::action("\\{$class}@{$action}"), $label, $icon);
+        return new Link(\URL::action("\\{$class}@{$action}", $parameters), $label, $icon);
+    }
+
+    public function getJs()
+    {
+        if ($this->js == null) {
+            $this->js = new Collection();
+        }
+        return $this->js;
+    }
+
+    public function getCss()
+    {
+        if ($this->css == null) {
+            $this->css = new Collection();
+        }
+        return $this->css;
+    }
+
+    public function addJs($script)
+    {
+        $this->getJs()->push($script);
+        return $this;
+    }
+
+    public function addCss($script)
+    {
+        $this->getCss()->push($script);
+        return $this;
     }
 }
