@@ -1,9 +1,12 @@
+<?php
+$__headers = [];
+foreach($table->columns->all() as $column) $__headers[] = $column->render();
+$__headers = implode('', $__headers);
+?>
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-        @foreach($table->columns->all() as $column)
-            {!! $column->render() !!}
-        @endforeach
+            {!! $__headers !!}
         </tr>
     </thead>
     <tbody>
@@ -16,10 +19,16 @@
     @endforeach
     </tbody>
     <tfoot>
-        <tr>
-        @foreach($table->columns->all() as $column)
-            {!! $column->render() !!}
-        @endforeach
-        </tr>
+        @if(isset($table->footer))
+            <tr>
+                <td colspan="{{ $table->columns->count() }}">
+                    {!! $table->footer !!}
+                </td>
+            </tr>
+        @else
+            <tr>
+                {!! $__headers !!}
+            </tr>
+        @endif
     </tfoot>
 </table>

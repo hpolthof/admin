@@ -11,12 +11,18 @@ class Column extends Widget
     public $content = null;
     public $sortable = true;
     protected $data = [];
+    protected $escapeHeader = true;
+
 
     public function render()
     {
         // Use direct rendering from string instead of a view.
         // This saves on performance when using large tables.
-        return "<th>".e($this->title)."</th>";
+        $title = $this->title;
+        if($this->escapeHeader) {
+            $title = e($title);
+        }
+        return "<th>{$title}</th>";
 //        return view('admin::widget.table.column_header', [
 //            'title' => $this->title,
 //        ]);
@@ -160,11 +166,17 @@ class Column extends Widget
 
     public function isRaw()
     {
-        $raw = ['view', 'image'];
+        $raw = ['view', 'image', 'raw'];
         if(array_search($this->getType(), $raw) !== FALSE) {
             return true;
         }
         return false;
     }
 
+
+    public function setEscapeHeader($escapeHeader = true)
+    {
+        $this->escapeHeader = $escapeHeader;
+        return $this;
+    }
 }

@@ -13,6 +13,7 @@ class Table extends Widget
     public $title;
     public $header;
     public $tools;
+    public $footer;
 
     public function __construct()
     {
@@ -67,6 +68,12 @@ class Table extends Widget
     public function setTools($tools)
     {
         $this->tools = $tools;
+        return $this;
+    }
+
+    public function setFooter($footer)
+    {
+        $this->footer = $footer;
         return $this;
     }
 

@@ -10,11 +10,16 @@ class CrudTable extends Table
     protected $controller;
     protected $exclude;
     protected $paginate = 0;
+    protected $_uid;
 
     public function __construct()
     {
-        $this->exclude = new Collection();
         parent::__construct();
+
+        $this->exclude = new Collection();
+        $this->_uid = uniqid();
+
+        $this->addCheckboxes();
     }
 
     /**
@@ -50,6 +55,8 @@ class CrudTable extends Table
 
         $this->addColumn($column);
 
+        $this->setFooter(view('admin::widget.table.crud.footer', ['controller' => $this->controller, 'exclude' => $this->exclude])->render());
+
         return parent::render();
     }
 
@@ -79,6 +86,19 @@ class CrudTable extends Table
                 $this->items = $this->items->get();
             }
         }
+    }
+
+    protected function addCheckboxes()
+    {
+        $column = new Column();
+        $column
+            ->setTitle(view('admin::widget.table.crud.checkboxhead', ['uid' => $this->_uid]))
+            ->setEscapeHeader(false)
+            ->setSortable(false)
+            ->setType('view')
+            ->setContent('admin::widget.table.crud.checkbox')
+            ->addData('uid', $this->_uid);
+        $this->addColumn($column);
     }
 
 
