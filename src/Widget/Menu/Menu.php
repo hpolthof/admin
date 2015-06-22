@@ -42,7 +42,9 @@ class Menu extends Widget
     {
         foreach($this->items->all() as $item) {
             if($item instanceof Menu) {
-                return $item->containsUrl($url);
+                if($item->containsUrl($url)) {
+                    return true;
+                }
             } else {
                 if($item->containsUrl($url)) {
                     return true;

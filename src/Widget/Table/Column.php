@@ -10,6 +10,7 @@ class Column extends Widget
     public $type = 'string';
     public $content = null;
     public $sortable = true;
+    public $width;
     protected $data = [];
     protected $escapeHeader = true;
 
@@ -22,7 +23,13 @@ class Column extends Widget
         if($this->escapeHeader) {
             $title = e($title);
         }
-        return "<th>{$title}</th>";
+
+        $style = '';
+        if(isset($this->width)) {
+            $style = " style='width:{$this->width}'";
+        }
+
+        return "<th{$style}>{$title}</th>";
 //        return view('admin::widget.table.column_header', [
 //            'title' => $this->title,
 //        ]);
@@ -138,10 +145,17 @@ class Column extends Widget
     public function getColumnContent($item, array $data = [])
     {
         $content = $this->content;
-        if ($content === null) {
+        if ($content === null && $this->getType() != 'method') {
             $content = $item->{$this->field};
         }
 
+        if($this->getType() == 'euro') {
+            $content = '&euro; '.number_format($content, 2, ',', '.');
+        }
+
+        if($this->getType() == 'method') {
+            $content = call_user_func([$item, $this->field]);
+        }
 
         if($this->getType() == 'view') {
             $content = \View::make($this->getContent(), [
@@ -179,4 +193,11 @@ class Column extends Widget
         $this->escapeHeader = $escapeHeader;
         return $this;
     }
+
+    public function setWidth($width)
+    {
+        $this->width = $width;
+        return $this;
+    }
+
 }

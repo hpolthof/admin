@@ -2,6 +2,7 @@
 
 use Hpolthof\Admin\AdminException;
 use Hpolthof\Admin\AdminPaginatorPresenter;
+use Hpolthof\Admin\Widget\Button;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -11,12 +12,16 @@ class CrudTable extends Table
     protected $exclude;
     protected $paginate = 0;
     protected $_uid;
+    protected $extra_actions;
+    protected $buttons;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->exclude = new Collection();
+        $this->extra_actions = new Collection();
+        $this->buttons = new Collection();
         $this->_uid = uniqid();
 
         $this->addCheckboxes();
@@ -47,11 +52,14 @@ class CrudTable extends Table
         $column = new Column();
         $column
             ->setTitle(trans('crud.actions'))
+            ->setWidth($this->extra_actions->count()>0?'200px':'130px')
             ->setSortable(false)
             ->setType('view')
             ->setContent('admin::widget.table.crud.actions')
             ->addData('controller', $this->controller)
-            ->addData('exclude', $this->exclude);
+            ->addData('table', $this)
+            ->addData('exclude', $this->exclude)
+            ->addData('extra', $this->extra_actions);
 
         $this->addColumn($column);
 
@@ -93,6 +101,7 @@ class CrudTable extends Table
         $column = new Column();
         $column
             ->setTitle(view('admin::widget.table.crud.checkboxhead', ['uid' => $this->_uid]))
+            ->setWidth('26px')
             ->setEscapeHeader(false)
             ->setSortable(false)
             ->setType('view')
@@ -101,5 +110,20 @@ class CrudTable extends Table
         $this->addColumn($column);
     }
 
+    public function addExtraActions($view)
+    {
+        $this->extra_actions->push($view);
+        return $this;
+    }
 
+    public function addButton(Button $button)
+    {
+        $this->buttons->push($button);
+        return $this;
+    }
+
+    public function getButtons()
+    {
+        return $this->buttons;
+    }
 }
