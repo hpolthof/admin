@@ -25,6 +25,7 @@
         @include('admin::layout.partials.page-header')
         <!-- Main content -->
         <section class="content">
+            @include('admin::layout.partials.flash')
             {!! $content or 'Please set content' !!}
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

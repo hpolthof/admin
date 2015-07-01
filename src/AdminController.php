@@ -135,4 +135,41 @@ abstract class AdminController extends BaseController
         $this->getCss()->push($script);
         return $this;
     }
+
+    protected function addMessage($type, $message)
+    {
+        $messages = array();
+        if(\Session::has('adminMessages')) {
+            $messages = \Session::get('adminMessages');
+        }
+        $messages[$type][] = $message;
+        \Session::flash('adminMessages', $messages);
+        return $this;
+    }
+
+    public function addError($message)
+    {
+        return $this->addMessage('danger', $message);
+    }
+
+    public function addSuccess($message)
+    {
+        return $this->addMessage('success', $message);
+    }
+
+    public function addInfo($message)
+    {
+        return $this->addMessage('info', $message);
+    }
+
+    public function addWarning($message)
+    {
+        return $this->addMessage('warning', $message);
+    }
+
+    protected function addActionMessage($action, $type = 'success', $translate_group = 'messages')
+    {
+        $controller = snake_case(class_basename($this));
+        return $this->addMessage($type, $translate_group.'.'.$controller.'.'.strtolower($action));
+    }
 }
