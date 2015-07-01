@@ -4,6 +4,7 @@ use Hpolthof\Admin\AdminException;
 use Hpolthof\Admin\AdminPaginatorPresenter;
 use Hpolthof\Admin\Widget\Button;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 
 class CrudTable extends Table
@@ -14,6 +15,7 @@ class CrudTable extends Table
     protected $_uid;
     protected $extra_actions;
     protected $buttons;
+    protected $group_by_field_name;
 
     public function __construct()
     {
@@ -88,10 +90,19 @@ class CrudTable extends Table
     protected function executeQuery()
     {
         if ($this->items instanceof Builder) {
+            if($this->getGroupBy() !== null) {
+                $group_field = $this->getGroupByFieldName() === null ? $this->getGroupBy() : $this->getGroupByFieldName();
+                // Insert as first order in sequence
+                $this->items->getQuery()->orders = array_merge(array(array(
+                    'column' => $group_field,
+                    'direction' => 'asc',
+                )), $this->items->getQuery()->orders===null?array():$this->items->getQuery()->orders);
+            }
+
             if ($this->paginate > 0) {
                 $this->items = $this->items->paginate($this->paginate);
             } else {
-                $this->items = $this->items->get();
+                $this->items->get();
             }
         }
     }
@@ -125,5 +136,16 @@ class CrudTable extends Table
     public function getButtons()
     {
         return $this->buttons;
+    }
+
+    public function getGroupByFieldName()
+    {
+        return $this->group_by_field_name;
+    }
+
+    public function setGroupByFieldName($group_by_field_name)
+    {
+        $this->group_by_field_name = $group_by_field_name;
+        return $this;
     }
 }

@@ -5,6 +5,7 @@ class Link extends Widget
     protected $url;
     protected $icon;
     protected $label;
+    protected $target;
 
     function __construct($url = null, $label = null, $icon = null)
     {
@@ -21,9 +22,14 @@ class Link extends Widget
 
     public function render()
     {
-        $ret = "<a href='{$this->url}'>";
+        $target = '';
+        if($this->getTarget() !== null) {
+            $target = "target='{$this->getTarget()}'";
+        }
+
+        $ret = "<a href='{$this->url}' {$target}>";
         if(isset($this->icon)) {
-            $ret .= "<i class='fa {$this->icon}'></i>";
+            $ret .= "<i class='fa {$this->icon}'></i>&nbsp;";
         }
         $ret .= $this->label."</a>";
         return $ret;
@@ -82,5 +88,24 @@ class Link extends Widget
         $this->label = $label;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param mixed $target
+     * @return Link
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
+
 
 }

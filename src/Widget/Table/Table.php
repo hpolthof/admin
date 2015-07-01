@@ -14,6 +14,7 @@ class Table extends Widget
     public $header;
     public $tools;
     public $footer;
+    public $group_by;
 
     public function __construct()
     {
@@ -77,5 +78,32 @@ class Table extends Widget
         return $this;
     }
 
+    public function getGroupBy()
+    {
+        return $this->group_by;
+    }
+
+    public function setGroupBy($group_by)
+    {
+        $this->group_by = $group_by;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups()
+    {
+        $groups = array();
+        if (isset($this->group_by)) {
+            foreach ($this->items as $item) {
+                $groups[] = $item->{$this->group_by};
+            }
+            $groups = array_unique($groups);
+            sort($groups);
+            return $groups;
+        }
+        return $groups;
+    }
 
 }

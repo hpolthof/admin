@@ -11,6 +11,8 @@ class Column extends Widget
     public $content = null;
     public $sortable = true;
     public $width;
+
+    protected $raw = false;
     protected $data = [];
     protected $escapeHeader = true;
 
@@ -184,7 +186,13 @@ class Column extends Widget
         if(array_search($this->getType(), $raw) !== FALSE) {
             return true;
         }
-        return false;
+        return $this->raw;
+    }
+
+    public function setRaw($value = true)
+    {
+        $this->raw = $value;
+        return $this;
     }
 
 
