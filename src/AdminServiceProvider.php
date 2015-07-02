@@ -30,6 +30,9 @@ class AdminServiceProvider extends ServiceProvider {
 		$this->publishes([
 			__DIR__.'/../../../almasaeed2010/adminlte/dist' => public_path('hpolthof/admin'),
 			__DIR__.'/../../../almasaeed2010/adminlte/plugins' => public_path('hpolthof/admin/plugins'),
+			__DIR__.'/../../../components/font-awesome/css' => public_path('hpolthof/admin/css'),
+			__DIR__.'/../../../components/font-awesome/fonts' => public_path('hpolthof/admin/fonts'),
+			__DIR__.'/../../../twbs/bootstrap/dist' => public_path('hpolthof/admin'),
 		], 'public');
 
 		$this->publishes([
