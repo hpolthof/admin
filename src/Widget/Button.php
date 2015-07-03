@@ -7,6 +7,8 @@ class Button extends Widget
     protected $action = null;
     protected $class = 'btn-default';
     protected $data = [];
+    protected $url = null;
+    protected $target = null;
 
     public function render()
     {
@@ -20,7 +22,11 @@ class Button extends Widget
             $url = \URL::action($this->action, $this->data);
         }
 
-        return "<a class='btn {$this->class}' href='{$url}'>{$icon}{$this->text}</a>";
+        if($this->url != null) {
+            $url = $this->url;
+        }
+
+        return "<a target='{$this->target}' class='btn {$this->class}' href='{$url}'>{$icon}{$this->text}</a>";
     }
 
     /**
@@ -71,5 +77,26 @@ class Button extends Widget
         $this->data = $data;
         return $this;
     }
+
+    /**
+     * @param null $url
+     * @return Button
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @param null $target
+     * @return Button
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
+
 
 }

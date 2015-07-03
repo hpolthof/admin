@@ -2,6 +2,7 @@
 
 use Hpolthof\Admin\AdminException;
 use Hpolthof\Admin\AdminPaginatorPresenter;
+use Hpolthof\Admin\Condition;
 use Hpolthof\Admin\Widget\Button;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
@@ -127,9 +128,9 @@ class CrudTable extends Table
         return $this;
     }
 
-    public function addButton(Button $button)
+    public function addButton(Button $button, Condition $condition = null)
     {
-        $this->buttons->push($button);
+        $this->buttons->push(compact('button', 'condition'));
         return $this;
     }
 

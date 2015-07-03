@@ -5,7 +5,13 @@ $exclude = $column->getData('exclude');
 
 <div class="btn-group btn-group-sm pull-right">
     @foreach($column->getData('table')->getButtons()->all() as $button)
-        {!! $button->setData(['id' => $item->id])->render() !!}
+        @if($button['condition'] === null)
+            {!! $button['button']->setData(['id' => $item->id])->render() !!}
+        @else
+            @if($button['condition']->check($item))
+                {!! $button['button']->setData(['id' => $item->id])->render() !!}
+            @endif
+        @endif
     @endforeach
 
     @if(!$exclude->contains('show'))
