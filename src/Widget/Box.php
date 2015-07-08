@@ -8,6 +8,7 @@ class Box extends Widget
     public $footer;
     public $body;
     public $tools;
+    public $class;
 
     /**
      * @param mixed $tools
@@ -63,4 +64,17 @@ class Box extends Widget
     {
         return view('admin::widget.box', ['box' => $this]);
     }
+
+    /**
+     * You can set colours to the top of the box using box-primary, box-success, etc.
+     * @param mixed $class
+     * @return Box
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+        return $this;
+    }
+
+
 }
