@@ -12,7 +12,7 @@ class Dataset
      * @param $label
      * @param $values
      */
-    public function __construct($label, array $values)
+    public function __construct($label, array $values = array())
     {
         $this->label = $label;
         $this->setValues($values);

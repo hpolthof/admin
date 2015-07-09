@@ -15,7 +15,7 @@ class LinechartDataset extends Dataset
      */
     public function setFillColor($fillColor)
     {
-        $this->fillColor = $fillColor;
+        $this->fillColor = (string)$fillColor;
         return $this;
     }
 
@@ -25,7 +25,7 @@ class LinechartDataset extends Dataset
      */
     public function setStrokeColor($strokeColor)
     {
-        $this->strokeColor = $strokeColor;
+        $this->strokeColor = (string)$strokeColor;
         return $this;
     }
 
@@ -35,7 +35,7 @@ class LinechartDataset extends Dataset
      */
     public function setPointColor($pointColor)
     {
-        $this->pointColor = $pointColor;
+        $this->pointColor = (string)$pointColor;
         return $this;
     }
 
@@ -45,7 +45,7 @@ class LinechartDataset extends Dataset
      */
     public function setPointStrokeColor($pointStrokeColor)
     {
-        $this->pointStrokeColor = $pointStrokeColor;
+        $this->pointStrokeColor = (string)$pointStrokeColor;
         return $this;
     }
 
@@ -55,7 +55,7 @@ class LinechartDataset extends Dataset
      */
     public function setPointHighlightFill($pointHighlightFill)
     {
-        $this->pointHighlightFill = $pointHighlightFill;
+        $this->pointHighlightFill = (string)$pointHighlightFill;
         return $this;
     }
 
@@ -65,7 +65,7 @@ class LinechartDataset extends Dataset
      */
     public function setPointHighlightStroke($pointHighlightStroke)
     {
-        $this->pointHighlightStroke = $pointHighlightStroke;
+        $this->pointHighlightStroke = (string)$pointHighlightStroke;
         return $this;
     }
 
@@ -73,4 +73,14 @@ class LinechartDataset extends Dataset
     {
         return $this->generateArray(['label', 'fillColor', 'strokeColor', 'pointColor', 'pointStrokeColor', 'pointHighlightFill', 'pointHighlightStroke']);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getStrokeColor()
+    {
+        return $this->strokeColor;
+    }
+
+
 }

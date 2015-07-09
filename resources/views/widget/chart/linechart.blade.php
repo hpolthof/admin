@@ -1,5 +1,13 @@
-<div class="chart_{{ $uid }}">
+<div class="chart_{{ $uid }}" style="display: inline-block">
     <canvas id="areaChart_{{ $uid }}" height="{{ $height }}"></canvas>
+    <div class="legend" style="text-align: center">
+    @foreach($legend as $label)
+        <span style="display: inline-block">
+            <span style="background-color: {{ $label[1] }}; width: 14px; height:14px;display: inline-block; margin: 0 3px"></span>
+            {{ $label[0] }}
+        </span>
+    @endforeach
+    </div>
 </div>
 
 <script>

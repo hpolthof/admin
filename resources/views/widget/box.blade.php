@@ -1,6 +1,6 @@
-<div class="box">
+<div class="box {{ $box->class }}">
     @if(isset($box->title) || isset($box->header))
-    <div class="box-header with-border {{ $box->class }}">
+    <div class="box-header with-border">
         @if(isset($box->header))
             {!! $box->header !!}
         @endif
