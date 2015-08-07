@@ -18,7 +18,7 @@ class CrudTable extends Table
     protected $buttons;
     protected $group_by_field_name;
 
-    public function __construct()
+    public function __construct($checkboxes = true)
     {
         parent::__construct();
 
@@ -27,7 +27,7 @@ class CrudTable extends Table
         $this->buttons = new Collection();
         $this->_uid = uniqid();
 
-        $this->addCheckboxes();
+        if($checkboxes) $this->addCheckboxes();
     }
 
     /**
@@ -66,7 +66,10 @@ class CrudTable extends Table
 
         $this->addColumn($column);
 
-        $this->setFooter(view('admin::widget.table.crud.footer', ['controller' => $this->controller, 'exclude' => $this->exclude])->render());
+        // Is footer overridden?
+        if(strlen($this->footer) == 0) {
+            $this->setFooter(view('admin::widget.table.crud.footer', ['controller' => $this->controller, 'exclude' => $this->exclude])->render());
+        }
 
         return parent::render();
     }

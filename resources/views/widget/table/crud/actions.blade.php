@@ -15,7 +15,7 @@ $exclude = $column->getData('exclude');
     @endforeach
 
     @if(!$exclude->contains('show'))
-        <a class="btn btn-default" href="{{ URL::action('\\'.$column->getData('controller').'@show', $item->id) }}"><i class="fa fa-eye"></i></a>
+        <a class="btn btn-default" href="{{ URL::action('\\'.$column->getData('controller').'@'.'show', $item->id) }}"><i class="fa fa-eye"></i></a>
     @endif
 
     @if(!$exclude->contains('edit'))
