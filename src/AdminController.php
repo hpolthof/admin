@@ -60,11 +60,11 @@ abstract class AdminController extends BaseController
         }
     }
 
-    public static function menuCrud($title, $icon = '', $extra_items = [])
+    public static function menuCrud($title, $icon = '', $extra_items = [], $indicator = null)
     {
-        $menu = new Menu($title, $icon);
+        $menu = new Menu($title, $icon, null, $indicator);
         $menu->addItem(new Item(trans('crud.index'), \URL::action('\\'.get_called_class().'@index'), 'fa-list-alt'));
-        $menu->addItem(new Item(trans('crud.create'), \URL::action('\\'.get_called_class().'@create'), 'fa-pencil'));
+        if(method_exists('\\'.get_called_class(), 'create')) $menu->addItem(new Item(trans('crud.create'), \URL::action('\\'.get_called_class().'@create'), 'fa-pencil'));
         foreach($extra_items as $i) {
             $menu->addUnsafe($i);
         }

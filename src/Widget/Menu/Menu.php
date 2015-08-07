@@ -11,13 +11,15 @@ class Menu extends Widget
     protected $icon;
     protected $url;
     protected $active = false;
+    protected $indicator;
 
-    public function __construct($title, $icon = null, $url = null)
+    public function __construct($title, $icon = null, $url = null, $indicator = null)
     {
         $this->items = new Collection();
         $this->title = $title;
         $this->icon = $icon;
         $this->url = $url;
+        $this->indicator = $indicator;
     }
 
     public function addMenu(Menu $menu)
@@ -57,6 +59,7 @@ class Menu extends Widget
     public function render()
     {
         return view('admin::widget.menu.menu', [
+            'indicator' => $this->indicator,
             'title' => $this->title,
             'icon' => $this->icon,
             'items' => $this->items,
