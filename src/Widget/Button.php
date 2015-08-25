@@ -14,7 +14,7 @@ class Button extends Widget
     {
         $icon = '';
         if ($this->icon != null) {
-            $icon = "<i class='fa {$this->icon}'></i>";
+            $icon = "<i class='fa fa-fw {$this->icon}'></i>";
         }
 
         $url = '#';

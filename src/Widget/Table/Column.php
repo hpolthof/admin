@@ -1,5 +1,6 @@
 <?php namespace Hpolthof\Admin\Widget\Table;
 
+use Hpolthof\Admin\AdminFormatter;
 use Hpolthof\Admin\Widget\Widget;
 use Illuminate\Support\Facades\Blade;
 
@@ -15,6 +16,17 @@ class Column extends Widget
     protected $raw = false;
     protected $data = [];
     protected $escapeHeader = true;
+    protected $formatter;
+
+    /**
+     * @param array|AdminFormatter $formatter
+     * @return Column
+     */
+    public function setFormatter($formatter)
+    {
+        $this->formatter = $formatter;
+        return $this;
+    }
 
 
     public function render()
@@ -45,6 +57,9 @@ class Column extends Widget
         if(!$this->isRaw()) {
             $content = e($content);
         }
+
+        $content = $this->applyFormatter($content);
+
         return "<td>{$content}</td>";
 //        $column = view('admin::widget.table.column', [
 //            'column' => $this,
@@ -206,6 +221,26 @@ class Column extends Widget
     {
         $this->width = $width;
         return $this;
+    }
+
+    /**
+     * @param $content
+     * @return mixed
+     */
+    protected function applyFormatter($content)
+    {
+        if ($this->formatter !== null) {
+            if (is_array($this->formatter)) {
+                foreach ($this->formatter as $f) {
+                    $content = call_user_func([$f, 'format'], $content);
+                }
+                return $content;
+            } else {
+                $content = call_user_func([$this->formatter, 'format'], $content);
+                return $content;
+            }
+        }
+        return $content;
     }
 
 }
