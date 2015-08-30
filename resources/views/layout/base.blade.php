@@ -32,7 +32,6 @@
 
     @include('admin::layout.partials.footer')
 
-    @include('admin::layout.partials.rightbar.rightbar')
 </div><!-- ./wrapper -->
 
     @include('admin::layout._scripts')

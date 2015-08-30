@@ -16,6 +16,13 @@ class Form extends Widget
     public function addField(Field $field)
     {
         $this->fields->push($field);
+        return $this;
+    }
+
+    public function resetFields()
+    {
+        $this->fields = new Collection();
+        return $this;
     }
 
     public function render()

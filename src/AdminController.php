@@ -4,7 +4,7 @@ use Hpolthof\Admin\Widget\Breadcrumbs;
 use Hpolthof\Admin\Widget\Link;
 use Hpolthof\Admin\Widget\Menu\Item;
 use Hpolthof\Admin\Widget\Menu\Menu;
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Collection;
@@ -12,7 +12,7 @@ use Illuminate\View\View;
 
 abstract class AdminController extends BaseController
 {
-    use DispatchesCommands, ValidatesRequests;
+    use DispatchesJobs, ValidatesRequests;
 
     protected $title = 'Set $title';
     protected $subtitle;
@@ -40,6 +40,8 @@ abstract class AdminController extends BaseController
         $this->loadCrudSubtitle();
 
         $that = $this;
+
+        // Menu
         \View::composer('admin::layout.base', function(View $view) use ($that) {
             $view->with('title', $that->title);
             $view->with('subtitle', $that->subtitle);
@@ -47,6 +49,14 @@ abstract class AdminController extends BaseController
         });
         view()->composer(
             'admin::layout.base', 'Hpolthof\Admin\MenuComposer'
+        );
+
+        // Navbar
+        \View::composer('admin::layout.partials.navbar.navbar', function(View $view) use ($that) {
+            $view->with('controller', $that);
+        });
+        view()->composer(
+            'admin::layout.partials.navbar.navbar', 'Hpolthof\Admin\NavbarComposer'
         );
     }
 

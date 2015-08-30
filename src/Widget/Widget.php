@@ -8,10 +8,12 @@ abstract class Widget implements WidgetInterface
         return $this->render();
     }
 
+    /**
+     * @return static
+     */
     public static function create()
     {
-        $class = get_called_class();
-        return (new $class);
+        return new static;
     }
 
     public static function stringOrRender($item)

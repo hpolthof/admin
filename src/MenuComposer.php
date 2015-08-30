@@ -1,9 +1,6 @@
 <?php namespace Hpolthof\Admin;
 
-
-use Hpolthof\Admin\Widget\Menu\Item;
 use Illuminate\Contracts\View\View;
-use Hpolthof\Admin\Widget\Menu\Menu;
 
 class MenuComposer
 {
@@ -16,15 +13,7 @@ class MenuComposer
     {
         $menu = require app_path('Admin/menu.php');
         $rendered = "";
-
-        if(is_array($menu)) {
-            foreach($menu as $i) {
-                $this->getRenderedResult($i, $rendered);
-            }
-        } else {
-            $this->getRenderedResult($menu, $rendered);
-        }
-        return $rendered;
+        return $this->distinctArrayOrWidget($menu, $rendered);
     }
 
     /**
@@ -39,5 +28,22 @@ class MenuComposer
         } else {
             $rendered .= $i;
         }
+    }
+
+    /**
+     * @param $menu
+     * @param $rendered
+     * @return mixed
+     */
+    protected function distinctArrayOrWidget($menu, $rendered)
+    {
+        if (is_array($menu)) {
+            foreach ($menu as $i) {
+                $this->getRenderedResult($i, $rendered);
+            }
+        } else {
+            $this->getRenderedResult($menu, $rendered);
+        }
+        return $rendered;
     }
 }

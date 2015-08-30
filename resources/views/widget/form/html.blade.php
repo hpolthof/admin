@@ -1,0 +1,1 @@
+<div class="form-control" id="{{ $id }}">{!! $field->getValue() !!}</div>
