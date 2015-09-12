@@ -21,6 +21,19 @@ abstract class Field extends Widget
         ])->render();
     }
 
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        $errors = \Session::get('errors');
+        if($errors === null) {
+            return [];
+        }
+
+        return $errors->get($this->getName());
+    }
+
     public function setVertical()
     {
         $this->verical = true;

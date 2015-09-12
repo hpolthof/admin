@@ -15,6 +15,8 @@ class Box extends Widget
 
     protected $removable = false;
 
+    protected $maxHeight = null;
+
 
     /**
      * @param mixed $tools
@@ -133,6 +135,24 @@ class Box extends Widget
     public function setRemovable($removable)
     {
         $this->removable = $removable;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMaxHeight()
+    {
+        return $this->maxHeight;
+    }
+
+    /**
+     * @param null $maxHeight
+     * @return Box
+     */
+    public function setMaxHeight($maxHeight)
+    {
+        $this->maxHeight = $maxHeight;
         return $this;
     }
 
