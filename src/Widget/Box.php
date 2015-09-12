@@ -10,6 +10,12 @@ class Box extends Widget
     public $tools;
     public $class;
 
+    protected $collapsible = false;
+    protected $collapsed = true;
+
+    protected $removable = false;
+
+
     /**
      * @param mixed $tools
      * @return Box
@@ -75,6 +81,63 @@ class Box extends Widget
         $this->class = $class;
         return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isCollapsible()
+    {
+        return $this->collapsible;
+    }
+
+    /**
+     * @param boolean $collapsible
+     * @return Box
+     */
+    public function setCollapsible($collapsible)
+    {
+        $this->collapsible = $collapsible;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCollapsed()
+    {
+        return $this->collapsed;
+    }
+
+    /**
+     * @param boolean $collapsed
+     * @return Box
+     */
+    public function setCollapsed($collapsed)
+    {
+        $this->collapsed = $collapsed;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRemovable()
+    {
+        return $this->removable;
+    }
+
+    /**
+     * @param boolean $removable
+     * @return Box
+     */
+    public function setRemovable($removable)
+    {
+        $this->removable = $removable;
+        return $this;
+    }
+
+
+
 
 
 }
