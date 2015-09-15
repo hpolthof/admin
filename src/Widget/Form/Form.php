@@ -37,6 +37,7 @@ class Form extends Widget
 
             $result .= $field->render();
         }
+
         return $result;
     }
 
