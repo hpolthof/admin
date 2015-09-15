@@ -52,19 +52,21 @@ class CrudTable extends Table
             $this->setTools(new AdminPaginatorPresenter($this->items));
         }
 
-        $column = new Column();
-        $column
-            ->setTitle(trans('crud.actions'))
-            ->setWidth($this->extra_actions->count()>0?'200px':'130px')
-            ->setSortable(false)
-            ->setType('view')
-            ->setContent('admin::widget.table.crud.actions')
-            ->addData('controller', $this->controller)
-            ->addData('table', $this)
-            ->addData('exclude', $this->exclude)
-            ->addData('extra', $this->extra_actions);
+        if($this->extra_actions->count() > 0 || !$this->exclude->contains('show') || !$this->exclude->contains('edit') || !$this->exclude->contains('destroy')) {
+            $column = new Column();
+            $column
+                ->setTitle(trans('crud.actions'))
+                ->setWidth($this->extra_actions->count()>0?'200px':'130px')
+                ->setSortable(false)
+                ->setType('view')
+                ->setContent('admin::widget.table.crud.actions')
+                ->addData('controller', $this->controller)
+                ->addData('table', $this)
+                ->addData('exclude', $this->exclude)
+                ->addData('extra', $this->extra_actions);
 
-        $this->addColumn($column);
+            $this->addColumn($column);
+        }
 
         // Is footer overridden?
         if(strlen($this->footer) == 0) {
