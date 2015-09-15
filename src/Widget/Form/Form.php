@@ -19,6 +19,14 @@ class Form extends Widget
         return $this;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
     public function resetFields()
     {
         $this->fields = new Collection();
