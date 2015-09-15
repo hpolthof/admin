@@ -5,7 +5,6 @@ use Hpolthof\Admin\AdminPaginatorPresenter;
 use Hpolthof\Admin\Condition;
 use Hpolthof\Admin\Widget\Button;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 
 class CrudTable extends Table
@@ -17,6 +16,7 @@ class CrudTable extends Table
     protected $extra_actions;
     protected $buttons;
     protected $group_by_field_name;
+    protected $link_parameters = [];
 
     public function __construct($checkboxes = true)
     {
@@ -70,7 +70,7 @@ class CrudTable extends Table
 
         // Is footer overridden?
         if(strlen($this->footer) == 0) {
-            $this->setFooter(view('admin::widget.table.crud.footer', ['controller' => $this->controller, 'exclude' => $this->exclude])->render());
+            $this->setFooter(view('admin::widget.table.crud.footer', ['controller' => $this->controller, 'exclude' => $this->exclude, 'link_parameters' => $this->getLinkParameters()])->render());
         }
 
         return parent::render();
@@ -154,4 +154,16 @@ class CrudTable extends Table
         $this->group_by_field_name = $group_by_field_name;
         return $this;
     }
+
+    public function getLinkParameters()
+    {
+        return $this->link_parameters;
+    }
+
+    public function setLinkParameter($name, $value)
+    {
+        $this->link_parameters[$name] = $value;
+        return $this;
+    }
+
 }
