@@ -180,6 +180,6 @@ abstract class AdminController extends BaseController
     protected function addActionMessage($action, $type = 'success', $translate_group = 'messages')
     {
         $controller = snake_case(class_basename($this));
-        return $this->addMessage($type, trans($translate_group.'.'.$controller.'.'.strtolower($action)));
+        return $this->addMessage($type, trans($translate_group.'.'.$controller.'.'.strtolower($action).'.'.$type));
     }
 }

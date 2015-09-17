@@ -20,7 +20,7 @@ $__headers = implode('', $__headers);
                 <td colspan="{{ $table->columns->count() }}" style="font-style: italic">{{ $group }}</td>
             </tr>
             @foreach($table->items as $item)
-                @if($item->{$table->getGroupBy()} === $group)
+                @if($item->{$table->getGroupBy()} === $group->getName())
                 <tr>
                     @foreach($table->columns->all() as $column)
                         @if($column->getField() !== $table->getGroupBy())

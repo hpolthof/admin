@@ -1,6 +1,7 @@
 <?php namespace Hpolthof\Admin\Widget\Table;
 
 
+use Hpolthof\Admin\Helpers\TableGroupItem;
 use Hpolthof\Admin\Widget\Box;
 use Hpolthof\Admin\Widget\Widget;
 use Illuminate\Pagination\Paginator;
@@ -90,20 +91,35 @@ class Table extends Widget
     }
 
     /**
-     * @return array
+     * @return TableGroupItem[]
      */
     public function getGroups()
     {
         $groups = array();
         if (isset($this->group_by)) {
             foreach ($this->items as $item) {
-                $groups[] = $item->{$this->group_by};
+                $column = $this->findColumnByField($this->group_by);
+                $groups[] = new TableGroupItem($item->{$this->group_by}, $column->getFinalContent($item));
             }
             $groups = array_unique($groups);
             sort($groups);
             return $groups;
         }
         return $groups;
+    }
+
+    /**
+     * @param $fieldname
+     * @return Column|null
+     */
+    public function findColumnByField($fieldname)
+    {
+        foreach($this->columns->all() as $column) {
+            if($column->getField() == $fieldname) {
+                return $column;
+            }
+        }
+        return null;
     }
 
 }

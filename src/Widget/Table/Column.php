@@ -53,12 +53,7 @@ class Column extends Widget
     {
         // Use direct rendering from string instead of a view.
         // This saves on performance when using large tables.
-        $content = $this->getColumnContent($item);
-        if(!$this->isRaw()) {
-            $content = e($content);
-        }
-
-        $content = $this->applyFormatter($content);
+        $content = $this->getFinalContent($item);
 
         return "<td>{$content}</td>";
 //        $column = view('admin::widget.table.column', [
@@ -240,6 +235,21 @@ class Column extends Widget
                 return $content;
             }
         }
+        return $content;
+    }
+
+    /**
+     * @param $item
+     * @return mixed|null|string
+     */
+    public function getFinalContent($item)
+    {
+        $content = $this->getColumnContent($item);
+        if (!$this->isRaw()) {
+            $content = e($content);
+        }
+
+        $content = $this->applyFormatter($content);
         return $content;
     }
 
