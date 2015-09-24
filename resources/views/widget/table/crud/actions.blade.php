@@ -6,10 +6,10 @@ $exclude = $column->getData('exclude');
 <div class="btn-group btn-group-sm pull-right">
     @foreach($column->getData('table')->getButtons()->all() as $button)
         @if($button['condition'] === null)
-            {!! $button['button']->setData(['id' => $item->id])->render() !!}
+            {!! $button['button']->setData(array_merge([$item->id], $column->getData('table')->getLinkParameters()))->render() !!}
         @else
             @if($button['condition']->check($item))
-                {!! $button['button']->setData(['id' => $item->id])->render() !!}
+                {!! $button['button']->setData(array_merge([$item->id], $column->getData('table')->getLinkParameters()))->render() !!}
             @endif
         @endif
     @endforeach

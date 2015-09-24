@@ -87,6 +87,12 @@ class CrudTable extends Table
         return $this;
     }
 
+    public function resetExclude()
+    {
+        $this->exclude = new Collection();
+        return $this;
+    }
+
     public function paginate($paginate)
     {
         $this->paginate = intval($paginate);
