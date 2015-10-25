@@ -104,7 +104,7 @@ abstract class AdminController extends BaseController
 
     public function addActionCrumb($action, $label, $icon = null, array $parameters = [])
     {
-        $this->addBreadcrumb(self::actionLink($action, $label, $icon, $parameters));
+        $this->addBreadcrumb(static::actionLink($action, $label, $icon, $parameters));
     }
 
     public function hasBreadcrumbs()
