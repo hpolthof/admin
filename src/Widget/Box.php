@@ -9,6 +9,7 @@ class Box extends Widget
     public $body;
     public $tools;
     public $class;
+    public $no_padding = false;
 
     protected $collapsible = false;
     protected $collapsed = true;
@@ -156,8 +157,22 @@ class Box extends Widget
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isNoPadding()
+    {
+        return $this->no_padding;
+    }
 
-
-
+    /**
+     * @param boolean $no_padding
+     * @return Box
+     */
+    public function setNoPadding($no_padding = true)
+    {
+        $this->no_padding = $no_padding;
+        return $this;
+    }
 
 }
