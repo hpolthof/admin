@@ -25,7 +25,7 @@
     </div><!-- /.box-header -->
     @endif
 
-    <div class="box-body" {!! $box->getMaxHeight() === null ? '' : 'style="overflow-y: scroll; max-height: '.$box->getMaxHeight().'"' !!}>
+    <div class="box-body {{ $box->isNoPadding() ? 'no-padding' : '' }}" {!! $box->getMaxHeight() === null ? '' : 'style="overflow-y: scroll; max-height: '.$box->getMaxHeight().'"' !!}>
         {!! $box->body !!}
     </div><!-- /.box-body -->
 
